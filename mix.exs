@@ -24,8 +24,7 @@ defmodule FourcastersApiClient.MixProject do
     [
       {:httpoison, "~> 1.8"},
       {:poison, "~> 4.0"},
-      {:gen_stage, "~> 1.0"},
-      {:dotenv, "~> 2.0"}
+      {:gen_stage, "~> 1.0"}
     ]
   end
 end

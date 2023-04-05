@@ -53,8 +53,17 @@ defmodule FourcastersApiClient.PollOrderBookActor do
     home_team_id = game["participants"] |> Enum.at(1) |> Map.get("id")
     home_rotation_number = game["participants"] |> Enum.at(1) |> Map.get("rotationNumber")
 
-    best_home_moneyline_price = game["homeMoneylines"] |> List.first() |> Map.get("odds")
-    best_away_moneyline_price = game["awayMoneylines"] |> List.first() |> Map.get("odds")
+    best_home_moneyline_price =
+      case game["homeMoneylines"] do
+        [] -> nil
+        lines -> lines |> List.first() |> Map.get("odds")
+      end
+
+    best_away_moneyline_price =
+      case game["awayMoneylines"] do
+        [] -> nil
+        lines -> lines |> List.first() |> Map.get("odds")
+      end
 
     IO.inspect(%{
       id: id,
