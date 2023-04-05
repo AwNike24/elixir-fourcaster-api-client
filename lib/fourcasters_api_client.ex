@@ -4,6 +4,7 @@ defmodule FourcastersApiClient.Application do
   def start(_type, _args) do
     children = [
       {FourcastersApiClient.LoginActor, []},
+      {FourcastersApiClient.GameCache, []},
       {FourcastersApiClient.PollOrderBookActor, []}
     ]
 

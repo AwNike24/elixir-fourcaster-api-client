@@ -2,8 +2,9 @@ defmodule FourcastersApiClient.PollOrderBookActor do
   use GenServer
 
   alias FourcastersApiClient.ApiClient
+  alias FourcastersApiClient.GameCache
 
-  @poll_interval System.get_env("FOURCASTERS_POLL_INTERVAL") || 60000
+  @poll_interval System.get_env("FOURCASTERS_POLL_INTERVAL") || 6000
   @username System.get_env("FOURCASTERS_API_USERNAME")
   @password System.get_env("FOURCASTERS_API_PASSWORD")
 
@@ -12,6 +13,8 @@ defmodule FourcastersApiClient.PollOrderBookActor do
   end
 
   def init(_) do
+    IO.puts("username #{@username} password #{@password}")
+
     # Login with the API credentials from environment variables and start polling the orderbook
     case ApiClient.login(@username, @password) do
       {:ok, auth_token} ->
@@ -65,7 +68,7 @@ defmodule FourcastersApiClient.PollOrderBookActor do
         lines -> lines |> List.first() |> Map.get("odds")
       end
 
-    IO.inspect(%{
+    game_data = %{
       id: id,
       home_team_id: home_team_id,
       away_team_id: away_team_id,
@@ -73,6 +76,9 @@ defmodule FourcastersApiClient.PollOrderBookActor do
       home_rotation_number: home_rotation_number,
       best_home_moneyline_price: best_home_moneyline_price,
       best_away_moneyline_price: best_away_moneyline_price,
-    })
+    }
+
+    # Add the game data to the cache
+    FourcastersApiClient.GameCache.add_game(game_data)
   end
 end

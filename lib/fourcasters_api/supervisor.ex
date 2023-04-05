@@ -11,6 +11,8 @@ defmodule FourcastersApiClient.Supervisor do
     children = [
       # Add LoginActor as a child process with no initialization arguments
       {FourcastersApiClient.LoginActor, []},
+      # Add GameCache as a child process with no initialization arguments
+      {FourcastersApiClient.GameCache, []},
       # Add PollOrderBookActor as a child process with no initialization arguments
       {FourcastersApiClient.PollOrderBookActor, []},
     ]

@@ -14,8 +14,7 @@ defmodule FourcastersApiClient.ApiClient do
              "password" => password
            }
            |> Poison.encode!()
-
-    Logger.info("Sending login request...")
+    Logger.info("Sending login request... username: #{username} password: #{password}")
 
     case HTTPoison.post(@login_url, body, headers) do
       {:ok, %Response{status_code: 200, body: body}} ->
