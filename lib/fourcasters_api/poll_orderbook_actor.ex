@@ -2,7 +2,6 @@ defmodule FourcastersApiClient.PollOrderBookActor do
   use GenServer
 
   alias FourcastersApiClient.ApiClient
-  alias FourcastersApiClient.GameCache
 
   @poll_interval System.get_env("FOURCASTERS_POLL_INTERVAL") || 6000
   @username System.get_env("FOURCASTERS_API_USERNAME")
